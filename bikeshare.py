@@ -16,16 +16,15 @@ def get_filters():
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
     print('Hello! Let\'s explore some US bikeshare data!')
-    # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
-
+    while True:
+    # Added a while loop to handle invalid inputs
+    # get user input for city (chicago, new york city, washington)
 
     # get user input for month (all, january, february, ... , june)
 
-
     # get user input for day of week (all, monday, tuesday, ... sunday)
 
-
-    print('-'*40)
+        print('-'*40)
     return city, month, day
 
 
@@ -36,7 +35,6 @@ def load_data(city, month, day):
     Returns:
         df (pandas.DataFrame): DataFrame containing city data filtered by month and day
     """
-
 
     return df
 
@@ -113,16 +111,28 @@ def user_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
+def print_stats(df):
+    """
+    Displays various statistics on the bikeshare data.
+    """
+    print('\nCalculating Statistics...\n')
+    start_time = time.time()
+
+    time_stats(df)
+    station_stats(df)
+    trip_duration_stats(df)
+    user_stats(df)
+
+    print("\nThis took %s seconds." % (time.time() - start_time))
+    print('-'*40)
+
 
 def main():
     while True:
         city, month, day = get_filters()
         df = load_data(city, month, day)
 
-        time_stats(df)
-        station_stats(df)
-        trip_duration_stats(df)
-        user_stats(df)
+        print_stats(df)
 
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
