@@ -16,102 +16,115 @@ Include the files used
 It's important to give proper credit. Add links to any repo that inspired you or blogposts you consulted.
  -->
 
-# US Bikeshare Data Analysis Program
+# US Bikeshare Data Analysis
 
 ## Description
 
-This Python program analyzes bike sharing system data from three major US cities: Chicago, New York City, and Washington. It provides an interactive way to explore bike share usage patterns by filtering data based on city, month, and day of the week.
+This Python script analyzes bike share data from three major US cities: Chicago, New York City, and Washington. It provides interactive data exploration capabilities, allowing users to filter data by city, month, and day of the week to analyze bikeshare usage patterns.
 
 ## Features
 
-- Filter bike share data by:
-  - City (Chicago, New York City, Washington)
-  - Month (January through June)
-  - Day of the week
-- View various statistics including:
-  - Most popular times of travel
-  - Most popular stations and trips
-  - Trip duration information
-  - User demographics
+- City-specific data analysis for Chicago, New York City, and Washington
+- Temporal analysis (month, day of week, hour)
+- Popular station statistics
+- Trip duration calculations
+- User demographic analysis
 
-## Requirements
+## Dependencies
 
 - Python 3.x
 - pandas
 - numpy
+- time
 
-## Dependencies Installation
+## Data Files Required
+
+The script expects the following CSV files in the same directory:
+
+- `chicago.csv`
+- `new_york_city.csv`
+- `washington.csv`
+
+## Installation
+
+1. Ensure Python 3.x is installed on your system
+2. Install required packages:
 
 ```bash
 pip install pandas numpy
 ```
 
-## Required Files
-
-The program expects the following CSV files in the same directory:
-
-- chicago.csv
-- new_york_city.csv
-- washington.csv
+3. Place the CSV data files in the same directory as the script
 
 ## Usage
 
-1. Run the program:
+1. Run the script:
 
 ```bash
 python bikeshare.py
 ```
 
 2. Follow the interactive prompts to:
+   - Select a city (chicago, new york city, or washington)
+   - Choose a month (all or specific month)
+   - Select a day of the week (all or specific day)
 
-   - Select a city
-   - Choose a month for filtering (or 'all')
-   - Select a day of the week (or 'all')
+## Functions
 
-3. View the analysis results
+### get_filters()
 
-4. Choose whether to restart the analysis with different filters
+Collects user input for filtering the data.
 
-## Program Structure
+- Returns:
+  - city (str): Selected city name
+  - month (str): Selected month or "all"
+  - day (str): Selected day or "all"
 
-### Main Functions
+### load_data(city, month, day)
 
-#### `get_filters()`
+Loads and filters the data based on user selections.
 
-- Handles user input for city, month, and day selections
-- Implements input validation
-- Returns selected filters
+- Parameters:
+  - city (str): City name
+  - month (str): Month name or "all"
+  - day (str): Day name or "all"
+- Returns:
+  - DataFrame containing filtered city data
 
-#### `load_data(city, month, day)`
+### time_stats(df)
 
-- Loads data from the appropriate CSV file
-- Applies time filters based on user selection
-- Returns filtered DataFrame
+Displays statistics about the most frequent times of travel:
 
-#### `time_stats(df)`
+- Most common month
+- Most common day of the week
+- Most common start hour
 
-- Calculates most frequent times of travel
-- Shows popular months, days, and hours
+### station_stats(df)
 
-#### `station_stats(df)`
+Shows statistics about the most popular stations and trips:
 
-- Identifies most popular stations and trip routes
-- Analyzes start and end station combinations
+- Most commonly used start station
+- Most commonly used end station
+- Most frequent combination of start and end stations
 
-#### `trip_duration_stats(df)`
+### trip_duration_stats(df)
 
-- Calculates total and average trip durations
-- Provides time-based analysis
+Calculates and displays trip duration statistics:
 
-#### `user_stats(df)`
+- Total travel time
+- Mean travel time
 
-- Analyzes user demographics
-- Shows breakdowns by user type and gender
-- Provides age statistics based on birth year
+### user_stats(df)
+
+Provides user demographics:
+
+- User type counts
+- Gender distribution
+- Birth year statistics
 
 ## Data Structure
 
-The program expects CSV files with the following columns:
+The script expects CSV files with the following columns:
 
 - Start Time
 - End Time
@@ -119,24 +132,29 @@ The program expects CSV files with the following columns:
 - Start Station
 - End Station
 - User Type
-- Additional demographic data (varies by city)
+- Additional columns (varies by city):
+  - Gender (Chicago and New York City only)
+  - Birth Year (Chicago and New York City only)
 
 ## Error Handling
 
-- The program includes input validation for city, month, and day selections
+- The script includes input validation for city, month, and day selections
 - Handles missing data gracefully
-- Provides appropriate error messages for invalid inputs
+- Accommodates different column structures between cities
 
 ## Contributing
 
-To contribute to this project:
+### Development Workflow
 
 1. Fork the repository
-2. Create a new branch for your feature
-3. Commit your changes
-4. Push to your branch
-5. Create a Pull Request
+2. Create feature branch: `git checkout -b new-feature`
+3. Commit changes: `git commit -m 'Add new feature'`
+4. Push to branch: `git push origin new-feature`
+5. Submit Pull Request
 
-## License
+### Code Style
 
-This project is available for public use. Please provide attribution when using or modifying the code.
+- Follow PEP 8 guidelines
+- Include docstrings for all functions
+- Add comments for complex logic
+- Maintain test coverage
